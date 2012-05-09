@@ -1,21 +1,25 @@
-function [ integral ] = newton_cotes( f, N, a, b )
+function [ integral ] = newton_cotes( N, f, a, b )
 
-% wspolczynniki dla 1. i 2. rzedu wyznaczone w madrej ksiazce
+% wspolczynniki wyznaczone na wiki
 I = [
-    1, 1, 0;
-    1, 4, 1;
+    1,  1,  0,  0, 0;
+    1,  4,  1,  0, 0;
+    1,  3,  3,  1, 0;
+    7, 32, 12, 32, 7;
 ];
 m = [
-    2;
-    6;
+     1/2;
+     1/3;
+     3/8;
+    2/45;
 ];
+h = (b-a)/N;
 
-% rownoodlegle wezly
 x = linspace(a, b, N+1);
 sum = 0;
-for n = 0:1:N
-    sum = sum + I(N, n+1) / m(N) * f(x(n+1));
+for n = 1:(N+1)
+    sum = sum + I(N, n) * f(x(n));
 end
-integral = (b - a) * sum;
+integral = h * m(N) * sum;
 
 end
