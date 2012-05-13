@@ -16,10 +16,6 @@ m = [
 h = (b-a)/N;
 
 x = linspace(a, b, N+1);
-sum = 0;
-for n = 1:(N+1)
-    sum = sum + I(N, n) * f(x(n));
-end
-integral = h * m(N) * sum;
+integral = h * m(N) * sum(I(N, 1:N+1) .* arrayfun(f, x));
 
 end
